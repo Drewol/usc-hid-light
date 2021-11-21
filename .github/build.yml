@@ -1,0 +1,21 @@
+jobs:
+    windows_build:
+        name: Windows build
+        runs-on: windows-latest
+        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v1
+            - name: Checkout submodules
+              run: git submodule update --init --recursive
+            - name: cmake
+              run: cmake -G "Visual Studio 16 2019" -A x64 .
+            - name: Setup MSBuild.exe
+              uses: microsoft/Setup-MSBuild@v1.0.2
+            - name: MSBuild
+              run: msbuild hidlights.sln -p:Configuration=Release /m /verbosity:minimal
+            - name: Upload artifact
+              uses: actions/upload-artifact@master
+              with:
+                name: LightPlugin
+                path: bin
