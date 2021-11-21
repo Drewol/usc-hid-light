@@ -1,3 +1,5 @@
+name: Build
+on: [push]
 jobs:
     windows_build:
         name: Windows build
