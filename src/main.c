@@ -270,7 +270,7 @@ void pocket_pico_SetButtons(uint32_t bitfield) {
 }
 
 void pocket_pico_SetLights(uint8_t left, uint32_t pos, RGB_t color) {
-	if (pos == 1)
+	if (pos == 0)
 	{
 		if (left) {
 			pocket_pico_report.left = color;
